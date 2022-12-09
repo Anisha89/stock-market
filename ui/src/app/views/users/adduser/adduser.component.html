@@ -1,0 +1,106 @@
+<div class="AddUser">
+   <div class="col-md-6">
+      <div class="card ">
+         <div class="card-header">
+            Add User
+         </div>
+         <div class="card-body">
+            <form #userform="ngForm" (ngSubmit)="f.form.valid " #f="ngForm" novalidate >
+            <div class="input-group mb-3">
+               <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="icon-user"></i></span>
+               </div>
+               <input type="text" 
+               class="form-control "
+               placeholder="Username" 
+               autocomplete="username"
+               [(ngModel)]="user.username" 
+               [class.is-invalid]="username.invalid && username.touched"
+               name="username"
+               minlength="5" maxlength="20"
+               #username="ngModel" required  />
+               <span>
+                  <div class="alert-danger" *ngIf="username.errors  && f.submitted  && f.touched">
+                     <div *ngIf="username.errors.required">Username is required</div>
+                     <div *ngIf="username.errors.minlength">
+                        Username must be at least 5 characters
+                     </div>
+                     <div *ngIf="username.errors.maxlength">
+                        Username must be at most 20 characters
+                     </div>
+                  </div>
+               </span>
+            </div>
+            <div class="input-group mb-3">
+               <div class="input-group-prepend">
+                  <span class="input-group-text">@</span>
+               </div>
+               <input type="text" class="form-control"  [class.is-invalid]="email.invalid && email.touched " placeholder="Email" autocomplete="email" name="email"
+               [(ngModel)]="user.email"   #email="ngModel" email required>
+               <div class="alert-danger" *ngIf="email.errors && f.touched && f.submitted ">
+                  <div *ngIf="email.errors.required">Email is required</div>
+                  <div *ngIf="email.errors.email">
+                     Email must be a valid email address
+                  </div>
+               </div>
+            </div>
+            <div class="input-group mb-3">
+               <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="icon-lock"></i></span>
+               </div>
+               <input type="password"
+               class="form-control" 
+               [class.is-invalid]="passwordVal.invalid && passwordVal.touched"
+               name="passwordVal"
+               placeholder="Enter Password"
+               [(ngModel)]="user.password" required
+               minlength="6" maxlength="14" 
+               #passwordVal="ngModel"/>
+               <div class="alert-danger" *ngIf="passwordVal.errors && f.touched">
+                  <div *ngIf="passwordVal.errors.required">Password is required</div>
+                  <div *ngIf="passwordVal.errors.minlength">
+                     Password must be at least 6 characters
+                  </div>
+               </div>
+            </div>
+            <div class="input-group mb-3">
+               <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="icon-lock"></i></span>
+               </div>
+               <input type="password"
+               class="form-control" 
+               name="cpassword"
+               placeholder="Repeat Password"
+               minlength="6" maxlength="14" 
+               ngModel #cpassword="ngModel" 
+               compare="passwordVal" 
+               [class.is-invalid]="cpassword .invalid && cpassword .touched"  required/>
+               <div *ngIf="cpassword .errors && (cpassword .invalid && cpassword .touched)" class="mt-1"> 
+                  <span class="text-danger" *ngIf='cpassword .errors?.required'> Confirm password is required.</span> 
+                  <span class="text-danger" *ngIf="cpassword .errors?.compare">Password Confirm do not match. </span> 
+                  <span class="text-danger" *ngIf="cpassword .errors?.minlength">   Password must be at least 6 characters </span> 
+               </div>
+            </div>
+            <div class="input-group mb-3">
+               <div class="input-prepend input-group">
+                  <div class="input-group-prepend">
+                     <span class="input-group-text"><i class="icon-user"></i></span>
+                  </div>
+                  <select  [(ngModel)]="selectedValue" 
+                  placeholder="Enter Role" 
+                  class="form-control" 
+                  name="role"
+                  (change)="getRole($event.target.value)"  > 
+                  <option  *ngFor ="let role of roleList;" >{{role}}</option>
+                  </select>
+               </div>
+            </div>
+            </form>
+         </div>
+         <div class="card-footer">
+            <button  type="submit" [disabled]="!userform.valid" (click)="onSubmit()" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
+            <button type="reset" class="btn btn-sm btn-danger" (click)="goBack()"><i class="fa fa-ban"></i> Back</button> 
+         </div>
+      </div>
+   </div>
+</div>

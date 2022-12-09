@@ -1,0 +1,24 @@
+.card-header {
+    height: auto;
+    .card-icons {
+        float: right;
+        .icon-wrapper {
+            width: 30px;
+            height: 25px;
+            padding:15px;
+            color: #23282c!important;
+            text-decoration: none;
+            i {
+                font-size: large;
+            }
+        }
+        
+    }
+}
+
+.addbutton{
+    padding: 0;
+    margin:0;
+    height:fit-content;
+    
+}
